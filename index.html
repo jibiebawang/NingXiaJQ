@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>my-project</title>
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_948640_oj100ugcilo.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <script>
+        //处理页面rem
+        (function(doc, win) {
+            //拿到html标签的dom元素对象
+            var docEle = doc.documentElement,
+                evt = "onorientationchange" in window ? "orientationchange" : "resize",
+                fn = function() {
+                    // 拿到当前屏幕的尺寸
+                    var width = docEle.clientWidth;
+                    width = width < 320 ? 320 : width;
+                    width = width > 640 ? 640 : width;
+                    if (width >= 320 && width <= 640) {
+                        width && (docEle.style.fontSize = 100 * (width / 640) + "px");
+                    }
+
+                    setTimeout(function() {
+                        var width = docEle.clientWidth;
+                        width = width < 320 ? 320 : width;
+                        width = width > 640 ? 640 : width;
+                        if (width >= 320 && width <= 640) {
+                            width && (docEle.style.fontSize = 100 * (width / 640) + "px");
+                        }
+                    }, 333);
+                };
+            win.addEventListener(evt, fn, false);
+            doc.addEventListener("DOMContentLoaded", fn, false);
+
+        }(document, window));
+    </script>
+</body>
+
+</html>
