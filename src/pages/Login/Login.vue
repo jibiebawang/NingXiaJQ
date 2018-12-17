@@ -20,7 +20,10 @@
       </div>
       <div class="bd-item">
         <i class="icon iconfont icon-lock"></i>
-        <input type="password" placeholder="请输入密码" class="txt-mm">
+        <input type="password" placeholder="请输入密码" class="txt-mm" v-if="!showPwd" v-model="pwd" maxlength="8">
+        <input type="text" placeholder="请输入密码" class="txt-mm"  v-if="showPwd" v-model="pwd" maxlength="8">
+        <i class="icon iconfont icon-faxian-yanjing" id="kaiyan" v-if="showPwd" @click="showPwd=!showPwd"></i>
+        <i class="icon iconfont icon-guanbi-yanjing" id="biyan" v-else @click="showPwd=!showPwd"></i>
       </div>
       <div class="bd-item">
         <i class="icon iconfont icon-dun"></i>
@@ -47,11 +50,23 @@
 
 <script>
 export default {
-
+  showPwd: false,
+  data() {
+    return {
+      showPwd: false,
+      pwd: ''
+    };
+  },
+  methods: {
+    touch () {
+      console.log('----------');
+    }
+  }
 };
 </script>
 
 <style scoped  lang="stylus" rel="stylesheet/stylus">
+@import "../../common/stylus/mixins.styl"
 .app {
   min-width: 320px;
   max-width: 640px;
@@ -116,13 +131,14 @@ export default {
     height: 4rem;
     border-radius: 15px 15px 0 0;
     padding-top: 25px;
-    position relative
+    position: relative;
+
     .bd-a {
       font-size: 0.22rem;
       color: #000;
-      right 0.6rem
-      margin-top 0.2rem
-      position absolute
+      right: 0.6rem;
+      margin-top: 0.2rem;
+      position: absolute;
     }
 
     .bd-item {
@@ -169,7 +185,7 @@ export default {
         width: 4rem;
         z-index: 100;
       }
-
+      
       .span-yzm {
         color: #4e83ed;
         font-size: 0.25rem;
@@ -177,7 +193,41 @@ export default {
         right: 0.3rem;
         top: 0.65rem;
       }
-
+      // .switch_button
+      //   font-size 12px
+      //   border 1px solid #ddd
+      //   border-radius 8px
+      //   transition background-color .3s,border-color .3s
+      //   padding 0 6px
+      //   width 30px
+      //   height 16px
+      //   line-height 16px
+      //   color #fff
+      //   position absolute
+      //   top 50%
+      //   right 10px
+      //   transform translateY(-50%)
+      //   &.off
+      //     background #fff
+      //     .switch_text
+      //       float right
+      //       color #ddd
+      //   &.on
+      //     background #02a774
+      //   >.switch_circle
+      //     //transform translateX(27px)
+      //     position absolute
+      //     top -1px
+      //     left -1px
+      //     width 16px
+      //     height 16px
+      //     border 1px solid #ddd
+      //     border-radius 50%
+      //     background #fff
+      //     box-shadow 0 2px 4px 0 rgba(0,0,0,.1)
+      //     transition transform .3s
+      //     &.right
+      //       transform translateX(30px)
       #icon-line {
         color: #e7e7e7;
       }
@@ -188,26 +238,30 @@ export default {
     background-color: #fff;
     height: 0.8rem;
     width: 100%;
-    position relative
+    position: relative;
+
     .btn-a {
       font-size: 0.22rem;
       color: #4388f0;
-      position absolute
-      left 2rem
-      margin-top 0.2rem
+      position: absolute;
+      left: 2rem;
+      margin-top: 0.2rem;
     }
+
     .btn-a:nth-child(2) {
-      position absolute
-      left 3.3rem
-      margin-top 0.2rem
+      position: absolute;
+      left: 3.3rem;
+      margin-top: 0.2rem;
     }
+
     i {
-      color #4388f0
-      font-size 0.22rem
-      position absolute
-      margin-top 0.2rem
-      left 3.1rem
+      color: #4388f0;
+      font-size: 0.22rem;
+      position: absolute;
+      margin-top: 0.2rem;
+      left: 3.1rem;
     }
+
     .btn {
       position: relative;
       margin: 0 auto;

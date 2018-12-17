@@ -4,10 +4,10 @@
     <div class="srch">
       <div class="srch-wrap">
         <i class="icon iconfont icon-fangdajing" id="bthSrch"></i>
-        <input type="text" placeholder="请输入景点名称" class="srch-txt" id="srchTxt">
+        <input type="text" v-model="search" placeholder="请输入景点名称" class="srch-txt" id="srchTxt">
       </div>
       <div class="srch-btn">
-        <span>搜索</span>
+        <a @click="srch">搜索</a>
       </div>
     </div>
 
@@ -73,7 +73,7 @@
         </li>
       </ul>
     </div>
-
+    
     <SceneryList></SceneryList>
   </div>
 </template>
@@ -92,6 +92,7 @@ export default {
   },
   data() {
     return {
+      search: "",
       imgitems: [
         {
           href: "http://baidu.com",
@@ -111,6 +112,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    srch() {
+      console.log('----------');
+    }
   }
 };
 </script>
@@ -168,7 +174,7 @@ export default {
     position: relative;
 
     // background-color: pink;
-    span {
+    a {
       font-size: 12px;
       color: #4485f0;
       // line-height: 27px;

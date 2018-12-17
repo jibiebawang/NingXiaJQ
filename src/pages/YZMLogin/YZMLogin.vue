@@ -14,16 +14,23 @@
       </div>
     </header>
     <div class="bd">
-      <div class="bd-item">
-        <i class="icon iconfont icon-shouji"></i>
-        <input type="text" placeholder="请输入手机号" class="txt-sjh" maxlength="11" v-model="phone">
-      </div>
-      <div class="bd-item">
-        <i class="icon iconfont icon-dun"></i>
-        <input type="text" placeholder="请输入验证码" class="txt-yzm" v-model="code">
-        <i class="icon iconfont icon-line" id="icon-line"></i>
-        <button :disabled="!rightPhone" class="span-yzm" :class="{right_phone: rightPhone}" @click="getClick">获取验证码</button>
-      </div>
+      <form>
+        <div class="bd-item">
+          <i class="icon iconfont icon-shouji"></i>
+          <input type="text" placeholder="请输入手机号" class="txt-sjh" maxlength="11" v-model="phone">
+        </div>
+        <div class="bd-item">
+          <i class="icon iconfont icon-dun"></i>
+          <input type="text" placeholder="请输入验证码" class="txt-yzm" v-model="code">
+          <i class="icon iconfont icon-line" id="icon-line"></i>
+          <button
+            :disabled="!rightPhone"
+            class="span-yzm"
+            :class="{right_phone: rightPhone}"
+            @click.prevent="getCode"
+          >{{computeTime>0 ? `已发送(${computeTime}s)` : '获取验证码'}}</button>
+        </div>
+      </form>
     </div>
     <div class="btn-bg">
       <div class="btn">
@@ -44,20 +51,31 @@
 export default {
   data() {
     return {
-      phone: '',
-      code: ''
-    }
+      phone: "",
+      code: "",
+      computeTime: 0
+    };
   },
   computed: {
-    rightPhone () {
-      return /^1\d{10}$/.test(this.phone)
+    rightPhone() {
+      return /^1\d{10}$/.test(this.phone);
     }
   },
   methods: {
-    getCode () {
-      //启动倒计时
-      alert('------')
-      //发送ajax请求（向指定手机号发送验证码短信）
+    getCode() {
+      if (!this.computeTime) {
+        //启动倒计时
+        this.computeTime = 5;
+        const intervalId = setInterval(() => {
+          this.computeTime--;
+          if (this.computeTime <= 0) {
+            //stop
+            clearInterval(intervalId);
+          }
+        }, 1000)
+        //发送ajax请求（向指定手机号发送验证码短信）
+      }
+      
     }
   }
 };
@@ -128,13 +146,14 @@ export default {
     height: 4rem;
     border-radius: 15px 15px 0 0;
     padding-top: 25px;
-    position relative
+    position: relative;
+
     .bd-a {
       font-size: 0.22rem;
       color: #000;
-      right 0.6rem
-      margin-top 0.2rem
-      position absolute
+      right: 0.6rem;
+      margin-top: 0.2rem;
+      position: absolute;
     }
 
     .bd-item {
@@ -186,13 +205,14 @@ export default {
         color: #cdcdcd;
         font-size: 0.25rem;
         position: absolute;
-        border 0
-        background-color transparent
-        outline none
+        border: 0;
+        background-color: transparent;
+        outline: none;
         right: 0.3rem;
         top: 0.62rem;
+
         &.right_phone {
-          color #4388f0
+          color: #4388f0;
         }
       }
 
@@ -206,26 +226,30 @@ export default {
     background-color: #fff;
     height: 0.8rem;
     width: 100%;
-    position relative
+    position: relative;
+
     .btn-a {
       font-size: 0.22rem;
       color: #4388f0;
-      position absolute
-      left 2.2rem
-      margin-top 0.2rem
+      position: absolute;
+      left: 2.2rem;
+      margin-top: 0.2rem;
     }
+
     .btn-a:nth-child(2) {
-      position absolute
-      left 3.3rem
-      margin-top 0.2rem
+      position: absolute;
+      left: 3.3rem;
+      margin-top: 0.2rem;
     }
+
     i {
-      color #4388f0
-      font-size 0.22rem
-      position absolute
-      margin-top 0.2rem
-      left 3.1rem
+      color: #4388f0;
+      font-size: 0.22rem;
+      position: absolute;
+      margin-top: 0.2rem;
+      left: 3.1rem;
     }
+
     .btn {
       position: relative;
       margin: 0 auto;

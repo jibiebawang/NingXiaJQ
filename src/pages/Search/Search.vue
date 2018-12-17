@@ -1,13 +1,18 @@
 <template>
-    <div>
-        Search
-    </div>
+  <div id="app">
+    <HeaderTop title="搜索"></HeaderTop>
+    <span></span>
+  </div>
 </template>
 
 <script>
-    export default {}
+import HeaderTop from "../../components/HeaderTop/HeaderTop.vue";
+export default {
+  components: {
+    HeaderTop
+  }
+};
 </script>
 
-<style>
-
+<style lang="stylus" rel="stylesheet/stylus" scoped>
 </style>
