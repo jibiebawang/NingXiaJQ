@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HeaderTop title="首页"></HeaderTop> 
+    <HeaderTop title="首页"></HeaderTop>
     <div class="srch">
       <div class="srch-wrap">
         <i class="icon iconfont icon-fangdajing" id="bthSrch"></i>
@@ -24,56 +24,81 @@
     <div class="channel">
       <ul class="channel-col">
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/自然风光.png" alt>
           <span>自然风光</span>
         </li>
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/亲子娱乐.png" alt>
           <span>亲子娱乐</span>
         </li>
       </ul>
       <ul class="channel-col">
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/人文古迹.png" alt>
           <span>人文古迹</span>
         </li>
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
-          <span>避暑胜地</span>
+          <img src="./img/避暑休闲.png" alt>
+          <span>避暑休闲</span>
         </li>
       </ul>
       <ul class="channel-col">
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/影视基地.png" alt>
           <span>影视基地</span>
         </li>
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/温泉滑雪.png" alt>
           <span>温泉滑雪</span>
         </li>
       </ul>
       <ul class="channel-col">
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/水上乐园.png" alt>
           <span>水上乐园</span>
         </li>
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/博物馆.png" alt>
           <span>博物馆</span>
         </li>
       </ul>
       <ul class="channel-col">
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/主题乐园.png" alt>
           <span>主题乐园</span>
         </li>
         <li class="channel-col-item">
-          <img src="./img/拍卖.png" alt>
+          <img src="./img/全部景点.png" alt>
           <span>全部景点</span>
         </li>
       </ul>
     </div>
-    
+    <div class="nav-sort">
+      <div class="sort-item">
+        <span @click.stop="func">全部城市</span>
+        <i class="icon iconfont icon-qianjin-copy" v-if="!tarch"></i>
+        <i class="icon iconfont icon-fanhui-copy-copy-copy" v-else></i>
+      </div>
+      <div class="sort-item">
+        <span @click.stop="funcSort">综合排序</span>
+        <i class="icon iconfont icon-qianjin-copy" v-if="!tarchSort"></i>
+        <i class="icon iconfont icon-fanhui-copy-copy-copy" v-else></i>
+      </div>
+      <div class="sort-item">
+        <span @click.stop="funcBook">预定时限</span>
+        <i class="icon iconfont icon-qianjin-copy" v-if="!tarchBook"></i>
+        <i class="icon iconfont icon-fanhui-copy-copy-copy" v-else></i>
+      </div>
+    </div>
+    <div v-if="tarch">
+      <City/>
+    </div>
+     <div v-if="tarchSort">
+      <Sort/>
+    </div>
+     <div v-if="tarchBook">
+      <PreTime/>
+    </div>
     <SceneryList></SceneryList>
   </div>
 </template>
@@ -81,6 +106,9 @@
 <script>
 import HeaderTop from "../../components/HeaderTop/HeaderTop.vue";
 import SceneryList from "../../components/SceneryList/SceneryList.vue";
+import City from "../../components/City/City.vue";
+import PreTime from "../../components/PreTime/PreTime.vue";
+import Sort from "../../components/Sort/Sort.vue";
 import { Swipe, SwipeItem } from "mint-ui";
 import "mint-ui/lib/style.css";
 export default {
@@ -88,10 +116,16 @@ export default {
     "mt-swipe": Swipe,
     "mt-swipe-item": SwipeItem,
     HeaderTop,
-    SceneryList
+    SceneryList,
+    City,
+    PreTime,
+    Sort
   },
   data() {
     return {
+      tarch: false,
+      tarchSort: false,
+      tarchBook: false,
       search: "",
       imgitems: [
         {
@@ -115,7 +149,39 @@ export default {
   },
   methods: {
     srch() {
-      console.log('----------');
+      console.log("----------");
+    },
+    func() {
+      if (this.tarch === true) {
+        this.tarch = false;
+      } else {
+        this.tarch = true;
+        this.tarchSort = false;
+        this.tarchBook = false;
+      }
+    },
+    funcSort() {
+      if (this.tarchSort === true) {
+        this.tarchSort = false;
+      } else {
+        this.tarchSort = true;
+        this.tarch = false;
+        this.tarchBook = false;
+      }
+    },
+    funcBook() {
+      if (this.tarchBook === true) {
+        this.tarchBook = false;
+      } else {
+        this.tarchBook = true;
+        this.tarch = false;
+        this.tarchSort = false;
+      }
+    },
+    functo() {
+      this.tarch = false;
+      this.tarchSort = false;
+      this.tarchBook = false;
     }
   }
 };
@@ -123,8 +189,9 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 #app {
-  padding-bottom 50px
+  padding-bottom: 50px;
 }
+
 .srch {
   margin: 0 auto;
   margin-top: 10px;
@@ -242,5 +309,35 @@ export default {
   }
 }
 
+.nav-sort {
+  width: 100%;
+  height: 0.55rem;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 
+  .sort-item {
+    position: relative;
+    height: 100%;
+    width: 33%;
+    background-color: #fff;
+
+    span {
+      position: absolute;
+      left: 0.5rem;
+      top: 0.17rem;
+      color: #666666;
+      font-size: 0.24rem;
+    }
+
+    i {
+      position: absolute;
+      left: 1.52rem;
+      top: 0.17rem;
+      color: #666666;
+      font-size: 0.24rem;
+    }
+  }
+}
 </style>
