@@ -4,7 +4,7 @@
       <i class="icon iconfont icon-home"></i>
       <span>首页</span>
     </div>
-    <div class="guide-item" @click="goto('/order')" :class="{on: isCurrent('/order')}">
+    <div class="guide-item" @click="goto('/order')" :class="{on: isCurrent('/order/orderall')}">
       <i class="icon iconfont icon-icon--copy"></i>
       <span>订单</span>
     </div>

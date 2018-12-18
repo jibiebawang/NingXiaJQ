@@ -190,6 +190,7 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 #app {
   padding-bottom: 50px;
+  background-color #fff
 }
 
 .srch {
